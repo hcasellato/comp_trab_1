@@ -35,11 +35,11 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_OUTPUT_XYZ_TAB_H_INCLUDED
-# define YY_YY_OUTPUT_XYZ_TAB_H_INCLUDED
+#ifndef YY_YY_INPUT_XYZ_TAB_H_INCLUDED
+# define YY_YY_INPUT_XYZ_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
-# define YYDEBUG 0
+# define YYDEBUG 1
 #endif
 #if YYDEBUG
 extern int yydebug;
@@ -70,24 +70,6 @@ extern int yydebug;
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
-/* Token kinds.  */
-#define YYEMPTY -2
-#define YYEOF 0
-#define YYerror 256
-#define YYUNDEF 257
-#define T_F64 258
-#define T_I64 259
-#define T_BOOL 260
-#define T_CHAR 261
-#define T_STR 262
-#define T_VAR 263
-#define T_ID 264
-#define T_INT 265
-#define T_REAL 266
-#define T_TRUE 267
-#define T_FALSE 268
-#define T_STRING 269
-#define T_CHARACTER 270
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -100,7 +82,7 @@ union YYSTYPE
         char            ch;
         char            *str;
 
-#line 104 "output_xyz.tab.h"
+#line 86 "input_xyz.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -113,4 +95,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_OUTPUT_XYZ_TAB_H_INCLUDED  */
+#endif /* !YY_YY_INPUT_XYZ_TAB_H_INCLUDED  */

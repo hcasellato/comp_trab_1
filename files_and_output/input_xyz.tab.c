@@ -88,7 +88,7 @@ struct symtab symbols[MAXSYMS];
 int nsyms = 0;
 
 
-#line 92 "output_xyz.tab.c"
+#line 92 "input_xyz.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -111,7 +111,7 @@ int nsyms = 0;
 #  endif
 # endif
 
-#include "output_xyz.tab.h"
+#include "input_xyz.tab.h"
 /* Symbol kind.  */
 enum yysymbol_kind_t
 {
@@ -1116,83 +1116,83 @@ yyreduce:
   case 2: /* program: block  */
 #line 60 "input_xyz.y"
                         { return 0; }
-#line 1120 "output_xyz.tab.c"
+#line 1120 "input_xyz.tab.c"
     break;
 
   case 7: /* decl: T_ID ':' type '=' value  */
 #line 73 "input_xyz.y"
                                           { assign((yyvsp[-4].str), (yyvsp[0].val), (yyvsp[-2].typ)); }
-#line 1126 "output_xyz.tab.c"
+#line 1126 "input_xyz.tab.c"
     break;
 
   case 8: /* type: T_F64  */
 #line 84 "input_xyz.y"
-              { (yyval.typ) = F64; }
-#line 1132 "output_xyz.tab.c"
+                         { return F64; }
+#line 1132 "input_xyz.tab.c"
     break;
 
   case 9: /* type: T_I64  */
 #line 85 "input_xyz.y"
-              { (yyval.typ) = I64; }
-#line 1138 "output_xyz.tab.c"
+                         { return T_F64; }
+#line 1138 "input_xyz.tab.c"
     break;
 
   case 10: /* type: T_BOOL  */
 #line 86 "input_xyz.y"
-              { (yyval.typ) = BOOL; }
-#line 1144 "output_xyz.tab.c"
+                         { return T_F64; }
+#line 1144 "input_xyz.tab.c"
     break;
 
   case 11: /* type: T_CHAR  */
 #line 87 "input_xyz.y"
-              { (yyval.typ) = CHAR; }
-#line 1150 "output_xyz.tab.c"
+                         { return T_F64; }
+#line 1150 "input_xyz.tab.c"
     break;
 
   case 12: /* type: T_STR  */
 #line 88 "input_xyz.y"
-              { (yyval.typ) = STR; }
-#line 1156 "output_xyz.tab.c"
+                         { return T_F64; }
+#line 1156 "input_xyz.tab.c"
     break;
 
   case 13: /* value: T_FALSE  */
 #line 91 "input_xyz.y"
                                         { (yyval.val).b   = (yyvsp[0].val.b); }
-#line 1162 "output_xyz.tab.c"
+#line 1162 "input_xyz.tab.c"
     break;
 
   case 14: /* value: T_TRUE  */
 #line 92 "input_xyz.y"
                                         { (yyval.val).b   = (yyvsp[0].val.b); }
-#line 1168 "output_xyz.tab.c"
+#line 1168 "input_xyz.tab.c"
     break;
 
   case 15: /* value: T_INT  */
 #line 93 "input_xyz.y"
                                         { (yyval.val).i64 = (yyvsp[0].val.i64); }
-#line 1174 "output_xyz.tab.c"
+#line 1174 "input_xyz.tab.c"
     break;
 
   case 16: /* value: T_REAL  */
 #line 94 "input_xyz.y"
                                         { (yyval.val).f64 = (yyvsp[0].val.f64); }
-#line 1180 "output_xyz.tab.c"
+#line 1180 "input_xyz.tab.c"
     break;
 
   case 17: /* value: T_STRING  */
 #line 95 "input_xyz.y"
                                         { (yyval.val).str = (yyvsp[0].val.str); }
-#line 1186 "output_xyz.tab.c"
+#line 1186 "input_xyz.tab.c"
     break;
 
   case 18: /* value: T_CHARACTER  */
 #line 96 "input_xyz.y"
                                         { (yyval.val).ch  = (yyvsp[0].val.ch); }
-#line 1192 "output_xyz.tab.c"
+#line 1192 "input_xyz.tab.c"
     break;
 
 
-#line 1196 "output_xyz.tab.c"
+#line 1196 "input_xyz.tab.c"
 
       default: break;
     }
@@ -1437,17 +1437,6 @@ void assign(char *id, union value_union val, enum type_enum typ) {
 				}
 }
 
-const char* type_to_string(enum type_enum typ) {
-    switch (typ) {
-        case F64:  return "F64";
-        case I64:  return "I64";
-        case BOOL: return "BOOL";
-        case CHAR: return "CHAR";
-        case STR:  return "STR";
-        default:   return "UNKNOWN";
-    }
-}
-
 int main (int argc, char **argv) {
         FILE *fp;
         int i;
@@ -1472,7 +1461,7 @@ int main (int argc, char **argv) {
 
         for (i = 0; i < nsyms; i++) {
                 p = &symbols[i];
-                printf("%s [%s] = %d \n", p->id, type_to_string(p->typ), p->val);
+                printf("%s [%s] = %f \n", p->id, p->typ, p->val);
         }
 
         return 0;
