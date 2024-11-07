@@ -1,6 +1,6 @@
-#line 2 "xyz.yy.c"
+#line 2 "output_xyz.yy.c"
 
-#line 4 "xyz.yy.c"
+#line 4 "output_xyz.yy.c"
 
 #define  YY_INT_ALIGNED short int
 
@@ -455,19 +455,19 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "xyz.l"
-#line 3 "xyz.l"
+#line 1 "input_xyz.l"
+#line 3 "input_xyz.l"
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "xyz.tab.h" // yacc -d xyz.y
+#include "output_xyz.tab.h" // yacc -d xyz.y
 
 /* tabela de simbolos */
-#include "symtab.h"
+//#include "symtab.h"
 
 extern int yyerror (char const *msg, ...);
-#line 470 "xyz.yy.c"
-#line 471 "xyz.yy.c"
+#line 470 "output_xyz.yy.c"
+#line 471 "output_xyz.yy.c"
 
 #define INITIAL 0
 
@@ -684,12 +684,12 @@ YY_DECL
 		}
 
 	{
-#line 18 "xyz.l"
+#line 18 "input_xyz.l"
 
-#line 20 "xyz.l"
+#line 20 "input_xyz.l"
  /* palavras reservadas */
 
-#line 693 "xyz.yy.c"
+#line 693 "output_xyz.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -748,58 +748,58 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 22 "xyz.l"
+#line 22 "input_xyz.l"
 { return T_VAR; }
 	YY_BREAK
 /* tipos de dados */
 case 2:
 YY_RULE_SETUP
-#line 26 "xyz.l"
+#line 26 "input_xyz.l"
 { return T_I64; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 27 "xyz.l"
+#line 27 "input_xyz.l"
 { return T_F64; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 28 "xyz.l"
+#line 28 "input_xyz.l"
 { return T_BOOL; }
 	YY_BREAK
 /* ignorando */
 case 5:
 YY_RULE_SETUP
-#line 32 "xyz.l"
+#line 32 "input_xyz.l"
 {}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 33 "xyz.l"
+#line 33 "input_xyz.l"
 {}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 34 "xyz.l"
+#line 34 "input_xyz.l"
 {}
 	YY_BREAK
 case 8:
 /* rule 8 can match eol */
 YY_RULE_SETUP
-#line 35 "xyz.l"
+#line 35 "input_xyz.l"
 {}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 36 "xyz.l"
+#line 36 "input_xyz.l"
 {}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 37 "xyz.l"
+#line 37 "input_xyz.l"
 ECHO;
 	YY_BREAK
-#line 803 "xyz.yy.c"
+#line 803 "output_xyz.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1804,6 +1804,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 37 "xyz.l"
+#line 37 "input_xyz.l"
 
 

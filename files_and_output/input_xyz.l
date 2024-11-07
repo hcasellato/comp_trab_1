@@ -3,10 +3,10 @@
 #include <stdbool.h>
 #include <stdlib.h>
 
-#include "xyz.tab.h" // yacc -d xyz.y
+#include "output_xyz.tab.h" // yacc -d xyz.y
 
 /* tabela de simbolos */
-#include "symtab.h"
+//#include "symtab.h"
 
 extern int yyerror (char const *msg, ...);
 %}

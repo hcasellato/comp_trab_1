@@ -35,8 +35,8 @@
    especially those whose name start with YY_ or yy_.  They are
    private implementation details that can be changed or removed.  */
 
-#ifndef YY_YY_Y_TAB_H_INCLUDED
-# define YY_YY_Y_TAB_H_INCLUDED
+#ifndef YY_YY_OUTPUT_XYZ_TAB_H_INCLUDED
+# define YY_YY_OUTPUT_XYZ_TAB_H_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -54,14 +54,15 @@ extern int yydebug;
     YYEOF = 0,                     /* "end of file"  */
     YYerror = 256,                 /* error  */
     YYUNDEF = 257,                 /* "invalid token"  */
-    T_I64 = 258,                   /* T_I64  */
-    T_F64 = 259,                   /* T_F64  */
-    T_INT = 260,                   /* T_INT  */
-    T_REAL = 261,                  /* T_REAL  */
-    T_BOOL = 262,                  /* T_BOOL  */
-    T_TRUE = 263,                  /* T_TRUE  */
-    T_FALSE = 264,                 /* T_FALSE  */
-    T_ID = 265                     /* T_ID  */
+    T_VAR = 258,                   /* T_VAR  */
+    T_I64 = 259,                   /* T_I64  */
+    T_F64 = 260,                   /* T_F64  */
+    T_INT = 261,                   /* T_INT  */
+    T_REAL = 262,                  /* T_REAL  */
+    T_BOOL = 263,                  /* T_BOOL  */
+    T_TRUE = 264,                  /* T_TRUE  */
+    T_FALSE = 265,                 /* T_FALSE  */
+    T_ID = 266                     /* T_ID  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -70,20 +71,37 @@ extern int yydebug;
 #define YYEOF 0
 #define YYerror 256
 #define YYUNDEF 257
-#define T_I64 258
-#define T_F64 259
-#define T_INT 260
-#define T_REAL 261
-#define T_BOOL 262
-#define T_TRUE 263
-#define T_FALSE 264
-#define T_ID 265
+#define T_VAR 258
+#define T_I64 259
+#define T_F64 260
+#define T_INT 261
+#define T_REAL 262
+#define T_BOOL 263
+#define T_TRUE 264
+#define T_FALSE 265
+#define T_ID 266
 
 /* Value type.  */
+#if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
+union YYSTYPE
+{
+#line 46 "input_xyz.y"
+
+        union value_union val;      
+        char            c;
+        char            *s;
+
+#line 95 "output_xyz.tab.h"
+
+};
+typedef union YYSTYPE YYSTYPE;
+# define YYSTYPE_IS_TRIVIAL 1
+# define YYSTYPE_IS_DECLARED 1
+#endif
 
 
 extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_Y_TAB_H_INCLUDED  */
+#endif /* !YY_YY_OUTPUT_XYZ_TAB_H_INCLUDED  */
