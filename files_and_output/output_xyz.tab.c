@@ -126,27 +126,33 @@ enum yysymbol_kind_t
   YYSYMBOL_T_STR = 7,                      /* T_STR  */
   YYSYMBOL_T_VAR = 8,                      /* T_VAR  */
   YYSYMBOL_T_ID = 9,                       /* T_ID  */
-  YYSYMBOL_T_INT = 10,                     /* T_INT  */
-  YYSYMBOL_T_REAL = 11,                    /* T_REAL  */
-  YYSYMBOL_T_TRUE = 12,                    /* T_TRUE  */
-  YYSYMBOL_T_FALSE = 13,                   /* T_FALSE  */
-  YYSYMBOL_T_STRING = 14,                  /* T_STRING  */
-  YYSYMBOL_T_CHARACTER = 15,               /* T_CHARACTER  */
-  YYSYMBOL_16_ = 16,                       /* '+'  */
-  YYSYMBOL_17_ = 17,                       /* '-'  */
-  YYSYMBOL_18_ = 18,                       /* '*'  */
-  YYSYMBOL_19_ = 19,                       /* '/'  */
-  YYSYMBOL_20_ = 20,                       /* '='  */
-  YYSYMBOL_21_ = 21,                       /* ';'  */
-  YYSYMBOL_22_ = 22,                       /* ','  */
-  YYSYMBOL_23_ = 23,                       /* ':'  */
-  YYSYMBOL_YYACCEPT = 24,                  /* $accept  */
-  YYSYMBOL_program = 25,                   /* program  */
-  YYSYMBOL_block = 26,                     /* block  */
-  YYSYMBOL_decl_list = 27,                 /* decl_list  */
-  YYSYMBOL_decl = 28,                      /* decl  */
-  YYSYMBOL_type = 29,                      /* type  */
-  YYSYMBOL_value = 30                      /* value  */
+  YYSYMBOL_T_INC = 10,                     /* T_INC  */
+  YYSYMBOL_T_DEC = 11,                     /* T_DEC  */
+  YYSYMBOL_T_INT = 12,                     /* T_INT  */
+  YYSYMBOL_T_REAL = 13,                    /* T_REAL  */
+  YYSYMBOL_T_TRUE = 14,                    /* T_TRUE  */
+  YYSYMBOL_T_FALSE = 15,                   /* T_FALSE  */
+  YYSYMBOL_T_STRING = 16,                  /* T_STRING  */
+  YYSYMBOL_T_CHARACTER = 17,               /* T_CHARACTER  */
+  YYSYMBOL_18_ = 18,                       /* '+'  */
+  YYSYMBOL_19_ = 19,                       /* '-'  */
+  YYSYMBOL_20_ = 20,                       /* '*'  */
+  YYSYMBOL_21_ = 21,                       /* '/'  */
+  YYSYMBOL_22_ = 22,                       /* '='  */
+  YYSYMBOL_23_ = 23,                       /* ';'  */
+  YYSYMBOL_24_ = 24,                       /* ','  */
+  YYSYMBOL_25_ = 25,                       /* ':'  */
+  YYSYMBOL_YYACCEPT = 26,                  /* $accept  */
+  YYSYMBOL_program = 27,                   /* program  */
+  YYSYMBOL_block = 28,                     /* block  */
+  YYSYMBOL_decl_list = 29,                 /* decl_list  */
+  YYSYMBOL_decl = 30,                      /* decl  */
+  YYSYMBOL_assignment = 31,                /* assignment  */
+  YYSYMBOL_inc_dec = 32,                   /* inc_dec  */
+  YYSYMBOL_expr_i = 33,                    /* expr_i  */
+  YYSYMBOL_expr_f = 34,                    /* expr_f  */
+  YYSYMBOL_type = 35,                      /* type  */
+  YYSYMBOL_value = 36                      /* value  */
 };
 typedef enum yysymbol_kind_t yysymbol_kind_t;
 
@@ -466,21 +472,21 @@ union yyalloc
 #endif /* !YYCOPY_NEEDED */
 
 /* YYFINAL -- State number of the termination state.  */
-#define YYFINAL  7
+#define YYFINAL  13
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   18
+#define YYLAST   53
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  24
+#define YYNTOKENS  26
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  7
+#define YYNNTS  11
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  18
+#define YYNRULES  34
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  26
+#define YYNSTATES  59
 
 /* YYMAXUTOK -- Last valid token kind.  */
-#define YYMAXUTOK   270
+#define YYMAXUTOK   272
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -498,9 +504,9 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,    18,    16,    22,    17,     2,    19,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,    23,    21,
-       2,    20,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,    20,    18,    24,    19,     2,    21,     2,     2,
+       2,     2,     2,     2,     2,     2,     2,     2,    25,    23,
+       2,    22,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -521,15 +527,17 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
-      15
+      15,    16,    17
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    60,    60,    63,    64,    69,    70,    73,    84,    85,
-      86,    87,    88,    91,    92,    93,    94,    95,    96
+       0,    66,    66,    69,    70,    71,    72,    77,    78,    81,
+      86,    87,    92,    93,    99,   100,   101,   102,   103,   105,
+     106,   107,   108,   109,   115,   116,   117,   118,   119,   122,
+     123,   124,   125,   126,   127
 };
 #endif
 
@@ -546,10 +554,11 @@ static const char *yysymbol_name (yysymbol_kind_t yysymbol) YY_ATTRIBUTE_UNUSED;
 static const char *const yytname[] =
 {
   "\"end of file\"", "error", "\"invalid token\"", "T_F64", "T_I64",
-  "T_BOOL", "T_CHAR", "T_STR", "T_VAR", "T_ID", "T_INT", "T_REAL",
-  "T_TRUE", "T_FALSE", "T_STRING", "T_CHARACTER", "'+'", "'-'", "'*'",
-  "'/'", "'='", "';'", "','", "':'", "$accept", "program", "block",
-  "decl_list", "decl", "type", "value", YY_NULLPTR
+  "T_BOOL", "T_CHAR", "T_STR", "T_VAR", "T_ID", "T_INC", "T_DEC", "T_INT",
+  "T_REAL", "T_TRUE", "T_FALSE", "T_STRING", "T_CHARACTER", "'+'", "'-'",
+  "'*'", "'/'", "'='", "';'", "','", "':'", "$accept", "program", "block",
+  "decl_list", "decl", "assignment", "inc_dec", "expr_i", "expr_f", "type",
+  "value", YY_NULLPTR
 };
 
 static const char *
@@ -565,8 +574,8 @@ yysymbol_name (yysymbol_kind_t yysymbol)
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267,   268,   269,   270,    43,    45,    42,    47,
-      61,    59,    44,    58
+     265,   266,   267,   268,   269,   270,   271,   272,    43,    45,
+      42,    47,    61,    59,    44,    58
 };
 #endif
 
@@ -584,9 +593,12 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       6,     2,    15,   -11,    -7,   -11,    -9,   -11,     3,   -11,
-       2,   -11,   -11,   -11,   -11,   -11,    -3,   -11,   -10,   -11,
-     -11,   -11,   -11,   -11,   -11,   -11
+       2,    -7,   -10,     9,   -11,     2,     2,    -8,     2,    19,
+       0,    17,    32,   -11,   -11,   -11,    22,   -11,   -11,    -7,
+     -11,   -11,   -11,   -11,    -5,     1,   -11,   -11,   -11,   -11,
+     -11,    29,   -11,    38,    38,    38,    38,   -11,    39,    39,
+      39,    39,   -11,    -9,    26,    26,   -11,   -11,    28,    28,
+     -11,   -11,   -11,   -11,   -11,   -11,   -11,   -11,   -11
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -594,21 +606,26 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       4,     0,     0,     2,     0,     3,     0,     1,     0,     5,
-       0,     8,     9,    10,    11,    12,     0,     6,     0,    15,
-      16,    14,    13,    17,    18,     7
+       6,     0,     0,     0,     2,     6,     6,     0,     6,     0,
+       0,     0,     0,     1,     4,     5,     0,     3,     7,     0,
+      12,    13,    18,    23,     0,     0,    24,    25,    26,    27,
+      28,     0,     8,     0,     0,     0,     0,    10,     0,     0,
+       0,     0,    11,     0,    14,    15,    16,    17,    19,    20,
+      21,    22,    31,    32,    30,    29,    33,    34,     9
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -11,   -11,   -11,     8,   -11,   -11,   -11
+     -11,   -11,    33,    34,   -11,   -11,   -11,    -3,    -4,   -11,
+     -11
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-       0,     2,     3,     5,     6,    16,    25
+       0,     3,     4,     8,     9,     5,     6,    24,    25,    31,
+      58
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -616,37 +633,52 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      19,    20,    21,    22,    23,    24,    11,    12,    13,    14,
-      15,     4,     9,    10,     1,     7,     8,    18,    17
+      10,    11,     7,    52,    53,    54,    55,    56,    57,    13,
+       1,     2,    12,    33,    34,    35,    36,    16,    37,    38,
+      39,    40,    41,    20,    42,    26,    27,    28,    29,    30,
+      44,    45,    46,    47,    48,    49,    50,    51,    14,    15,
+      21,    17,    18,    19,    22,    23,    35,    36,    40,    41,
+      22,    43,    23,    32
 };
 
 static const yytype_int8 yycheck[] =
 {
-      10,    11,    12,    13,    14,    15,     3,     4,     5,     6,
-       7,     9,    21,    22,     8,     0,    23,    20,    10
+      10,    11,     9,    12,    13,    14,    15,    16,    17,     0,
+       8,     9,    22,    18,    19,    20,    21,    25,    23,    18,
+      19,    20,    21,    23,    23,     3,     4,     5,     6,     7,
+      33,    34,    35,    36,    38,    39,    40,    41,     5,     6,
+      23,     8,    23,    24,    12,    13,    20,    21,    20,    21,
+      12,    22,    13,    19
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     8,    25,    26,     9,    27,    28,     0,    23,    21,
-      22,     3,     4,     5,     6,     7,    29,    27,    20,    10,
-      11,    12,    13,    14,    15,    30
+       0,     8,     9,    27,    28,    31,    32,     9,    29,    30,
+      10,    11,    22,     0,    28,    28,    25,    28,    23,    24,
+      23,    23,    12,    13,    33,    34,     3,     4,     5,     6,
+       7,    35,    29,    18,    19,    20,    21,    23,    18,    19,
+      20,    21,    23,    22,    33,    33,    33,    33,    34,    34,
+      34,    34,    12,    13,    14,    15,    16,    17,    36
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    24,    25,    26,    26,    27,    27,    28,    29,    29,
-      29,    29,    29,    30,    30,    30,    30,    30,    30
+       0,    26,    27,    28,    28,    28,    28,    29,    29,    30,
+      31,    31,    32,    32,    33,    33,    33,    33,    33,    34,
+      34,    34,    34,    34,    35,    35,    35,    35,    35,    36,
+      36,    36,    36,    36,    36
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,     1,     2,     0,     2,     3,     5,     1,     1,
-       1,     1,     1,     1,     1,     1,     1,     1,     1
+       0,     2,     1,     3,     2,     2,     0,     2,     3,     5,
+       4,     4,     3,     3,     3,     3,     3,     3,     1,     3,
+       3,     3,     3,     1,     1,     1,     1,     1,     1,     1,
+       1,     1,     1,     1,     1
 };
 
 
@@ -1114,85 +1146,169 @@ yyreduce:
   switch (yyn)
     {
   case 2: /* program: block  */
-#line 60 "input_xyz.y"
+#line 66 "input_xyz.y"
                         { return 0; }
-#line 1120 "output_xyz.tab.c"
+#line 1152 "output_xyz.tab.c"
     break;
 
-  case 7: /* decl: T_ID ':' type '=' value  */
-#line 73 "input_xyz.y"
-                                          { assign((yyvsp[-4].str), (yyvsp[0].val), (yyvsp[-2].typ)); }
-#line 1126 "output_xyz.tab.c"
+  case 9: /* decl: T_ID ':' type '=' value  */
+#line 81 "input_xyz.y"
+                                          { declare((yyvsp[-4].str), (yyvsp[0].val), (yyvsp[-2].typ)); }
+#line 1158 "output_xyz.tab.c"
     break;
 
-  case 8: /* type: T_F64  */
-#line 84 "input_xyz.y"
-              { (yyval.typ) = F64; }
-#line 1132 "output_xyz.tab.c"
-    break;
-
-  case 9: /* type: T_I64  */
-#line 85 "input_xyz.y"
-              { (yyval.typ) = I64; }
-#line 1138 "output_xyz.tab.c"
-    break;
-
-  case 10: /* type: T_BOOL  */
+  case 10: /* assignment: T_ID '=' expr_i ';'  */
 #line 86 "input_xyz.y"
-              { (yyval.typ) = BOOL; }
-#line 1144 "output_xyz.tab.c"
+                                                  { assign((yyvsp[-3].str), (yyvsp[-1].val)); }
+#line 1164 "output_xyz.tab.c"
     break;
 
-  case 11: /* type: T_CHAR  */
+  case 11: /* assignment: T_ID '=' expr_f ';'  */
 #line 87 "input_xyz.y"
-              { (yyval.typ) = CHAR; }
-#line 1150 "output_xyz.tab.c"
+                                                  { assign((yyvsp[-3].str), (yyvsp[-1].val)); }
+#line 1170 "output_xyz.tab.c"
     break;
 
-  case 12: /* type: T_STR  */
-#line 88 "input_xyz.y"
-              { (yyval.typ) = STR; }
-#line 1156 "output_xyz.tab.c"
-    break;
-
-  case 13: /* value: T_FALSE  */
-#line 91 "input_xyz.y"
-                                        { (yyval.val).b   = (yyvsp[0].val.b); }
-#line 1162 "output_xyz.tab.c"
-    break;
-
-  case 14: /* value: T_TRUE  */
+  case 12: /* inc_dec: T_ID T_INC ';'  */
 #line 92 "input_xyz.y"
-                                        { (yyval.val).b   = (yyvsp[0].val.b); }
-#line 1168 "output_xyz.tab.c"
+                                                { inc_dec((yyvsp[-2].str), "++"); }
+#line 1176 "output_xyz.tab.c"
     break;
 
-  case 15: /* value: T_INT  */
+  case 13: /* inc_dec: T_ID T_DEC ';'  */
 #line 93 "input_xyz.y"
-                                        { (yyval.val).i64 = (yyvsp[0].val.i64); }
-#line 1174 "output_xyz.tab.c"
+                                                { inc_dec((yyvsp[-2].str), "--"); }
+#line 1182 "output_xyz.tab.c"
     break;
 
-  case 16: /* value: T_REAL  */
-#line 94 "input_xyz.y"
-                                        { (yyval.val).f64 = (yyvsp[0].val.f64); }
-#line 1180 "output_xyz.tab.c"
+  case 14: /* expr_i: expr_i '+' expr_i  */
+#line 99 "input_xyz.y"
+                                    { (yyval.val).i64 = (yyvsp[-2].val).i64 + (yyvsp[0].val).i64; }
+#line 1188 "output_xyz.tab.c"
     break;
 
-  case 17: /* value: T_STRING  */
-#line 95 "input_xyz.y"
-                                        { (yyval.val).str = (yyvsp[0].val.str); }
-#line 1186 "output_xyz.tab.c"
+  case 15: /* expr_i: expr_i '-' expr_i  */
+#line 100 "input_xyz.y"
+                                    { (yyval.val).i64 = (yyvsp[-2].val).i64 - (yyvsp[0].val).i64; }
+#line 1194 "output_xyz.tab.c"
     break;
 
-  case 18: /* value: T_CHARACTER  */
-#line 96 "input_xyz.y"
-                                        { (yyval.val).ch  = (yyvsp[0].val.ch); }
-#line 1192 "output_xyz.tab.c"
+  case 16: /* expr_i: expr_i '*' expr_i  */
+#line 101 "input_xyz.y"
+                                    { (yyval.val).i64 = (yyvsp[-2].val).i64 * (yyvsp[0].val).i64; }
+#line 1200 "output_xyz.tab.c"
+    break;
+
+  case 17: /* expr_i: expr_i '/' expr_i  */
+#line 102 "input_xyz.y"
+                                    { (yyval.val).i64 = (yyvsp[-2].val).i64 / (yyvsp[0].val).i64; }
+#line 1206 "output_xyz.tab.c"
+    break;
+
+  case 18: /* expr_i: T_INT  */
+#line 103 "input_xyz.y"
+                                    { (yyval.val).i64 = (yyvsp[0].val.i64); }
+#line 1212 "output_xyz.tab.c"
+    break;
+
+  case 19: /* expr_f: expr_f '+' expr_f  */
+#line 105 "input_xyz.y"
+                                    { (yyval.val).f64 = (yyvsp[-2].val).f64 + (yyvsp[0].val).f64; }
+#line 1218 "output_xyz.tab.c"
+    break;
+
+  case 20: /* expr_f: expr_f '-' expr_f  */
+#line 106 "input_xyz.y"
+                                    { (yyval.val).f64 = (yyvsp[-2].val).f64 - (yyvsp[0].val).f64; }
+#line 1224 "output_xyz.tab.c"
+    break;
+
+  case 21: /* expr_f: expr_f '*' expr_f  */
+#line 107 "input_xyz.y"
+                                    { (yyval.val).f64 = (yyvsp[-2].val).f64 * (yyvsp[0].val).f64; }
+#line 1230 "output_xyz.tab.c"
+    break;
+
+  case 22: /* expr_f: expr_f '/' expr_f  */
+#line 108 "input_xyz.y"
+                                    { (yyval.val).f64 = (yyvsp[-2].val).f64 / (yyvsp[0].val).f64; }
+#line 1236 "output_xyz.tab.c"
+    break;
+
+  case 23: /* expr_f: T_REAL  */
+#line 109 "input_xyz.y"
+                                    { (yyval.val).f64 = (yyvsp[0].val.f64); }
+#line 1242 "output_xyz.tab.c"
+    break;
+
+  case 24: /* type: T_F64  */
+#line 115 "input_xyz.y"
+               { (yyval.typ) = F64; }
+#line 1248 "output_xyz.tab.c"
+    break;
+
+  case 25: /* type: T_I64  */
+#line 116 "input_xyz.y"
+               { (yyval.typ) = I64; }
+#line 1254 "output_xyz.tab.c"
+    break;
+
+  case 26: /* type: T_BOOL  */
+#line 117 "input_xyz.y"
+               { (yyval.typ) = BOOL; }
+#line 1260 "output_xyz.tab.c"
+    break;
+
+  case 27: /* type: T_CHAR  */
+#line 118 "input_xyz.y"
+               { (yyval.typ) = CHAR; }
+#line 1266 "output_xyz.tab.c"
+    break;
+
+  case 28: /* type: T_STR  */
+#line 119 "input_xyz.y"
+               { (yyval.typ) = STR; }
+#line 1272 "output_xyz.tab.c"
+    break;
+
+  case 29: /* value: T_FALSE  */
+#line 122 "input_xyz.y"
+                    { (yyval.val).b   = (yyvsp[0].val.b); }
+#line 1278 "output_xyz.tab.c"
+    break;
+
+  case 30: /* value: T_TRUE  */
+#line 123 "input_xyz.y"
+                    { (yyval.val).b   = (yyvsp[0].val.b); }
+#line 1284 "output_xyz.tab.c"
+    break;
+
+  case 31: /* value: T_INT  */
+#line 124 "input_xyz.y"
+                    { (yyval.val).i64 = (yyvsp[0].val.i64); }
+#line 1290 "output_xyz.tab.c"
+    break;
+
+  case 32: /* value: T_REAL  */
+#line 125 "input_xyz.y"
+                    { (yyval.val).f64 = (yyvsp[0].val.f64); }
+#line 1296 "output_xyz.tab.c"
+    break;
+
+  case 33: /* value: T_STRING  */
+#line 126 "input_xyz.y"
+                    { (yyval.val).str = (yyvsp[0].val.str); }
+#line 1302 "output_xyz.tab.c"
+    break;
+
+  case 34: /* value: T_CHARACTER  */
+#line 127 "input_xyz.y"
+                    { (yyval.val).ch  = (yyvsp[0].val.ch); }
+#line 1308 "output_xyz.tab.c"
     break;
 
 
-#line 1196 "output_xyz.tab.c"
+#line 1312 "output_xyz.tab.c"
 
       default: break;
     }
@@ -1386,7 +1502,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 98 "input_xyz.y"
+#line 129 "input_xyz.y"
 
 #include "output_xyz.yy.c"
 
@@ -1400,6 +1516,7 @@ int yyerror(const char *msg, ...) {
 	return 0;
 }
 
+// Lookup function to create symbol table
 static struct symtab *lookup(char *id) {
         int i;
         struct symtab *p;
@@ -1413,6 +1530,7 @@ static struct symtab *lookup(char *id) {
         return NULL;
 }
 
+// install function to symtab
 static void install(char *id, union value_union val, enum type_enum typ) {
         struct symtab *p;
 
@@ -1422,7 +1540,8 @@ static void install(char *id, union value_union val, enum type_enum typ) {
         p->typ = typ;
 }
 
-void assign(char *id, union value_union val, enum type_enum typ) {
+// declaration function
+void declare(char *id, union value_union val, enum type_enum typ) {
         struct symtab *p;
 
         p = lookup(id);
@@ -1437,6 +1556,25 @@ void assign(char *id, union value_union val, enum type_enum typ) {
 				}
 }
 
+// assign function
+void assign(char *id, union value_union val) {
+        struct symtab *p;
+
+        p = lookup(id);
+        if(p == NULL){
+                printf("Variable not created yet!");
+                exit(EXIT_FAILURE);
+				} else {
+				    if (p->typ == I64 || p->typ == F64) {
+				        p->val = val;
+				    }else{
+				        fprintf(stderr, "Type error: variable '%s' declared wrong!", id);
+				        exit(EXIT_FAILURE);
+				    }
+				}
+}
+
+// transforma tipo para uma string na tabela de simbolos
 const char* type_to_string(enum type_enum typ) {
     switch (typ) {
         case F64:  return "F64";
@@ -1448,6 +1586,26 @@ const char* type_to_string(enum type_enum typ) {
     }
 }
 
+// incrementa ou decrementa
+void inc_dec(char *id, char *signal) {
+        struct symtab *p;
+
+        p = lookup(id);
+        if(p == NULL){
+                printf("Variable not created yet!");
+                exit(EXIT_FAILURE);
+				} else {
+				    if (p->typ != I64) {
+				        fprintf(stderr, "Somente funciona com inteiros, colega");
+				        exit(EXIT_FAILURE);
+				    }
+				    if(signal == "++"){
+				      p->val.i64 = p->val.i64 + 1;
+				    } else if (signal == "--") {
+				      p->val.i64 = p->val.i64 - 1;
+				    }
+				}
+}
 int main (int argc, char **argv) {
         FILE *fp;
         int i;

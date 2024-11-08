@@ -61,12 +61,14 @@ extern int yydebug;
     T_STR = 262,                   /* T_STR  */
     T_VAR = 263,                   /* T_VAR  */
     T_ID = 264,                    /* T_ID  */
-    T_INT = 265,                   /* T_INT  */
-    T_REAL = 266,                  /* T_REAL  */
-    T_TRUE = 267,                  /* T_TRUE  */
-    T_FALSE = 268,                 /* T_FALSE  */
-    T_STRING = 269,                /* T_STRING  */
-    T_CHARACTER = 270              /* T_CHARACTER  */
+    T_INC = 265,                   /* T_INC  */
+    T_DEC = 266,                   /* T_DEC  */
+    T_INT = 267,                   /* T_INT  */
+    T_REAL = 268,                  /* T_REAL  */
+    T_TRUE = 269,                  /* T_TRUE  */
+    T_FALSE = 270,                 /* T_FALSE  */
+    T_STRING = 271,                /* T_STRING  */
+    T_CHARACTER = 272              /* T_CHARACTER  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -82,12 +84,14 @@ extern int yydebug;
 #define T_STR 262
 #define T_VAR 263
 #define T_ID 264
-#define T_INT 265
-#define T_REAL 266
-#define T_TRUE 267
-#define T_FALSE 268
-#define T_STRING 269
-#define T_CHARACTER 270
+#define T_INC 265
+#define T_DEC 266
+#define T_INT 267
+#define T_REAL 268
+#define T_TRUE 269
+#define T_FALSE 270
+#define T_STRING 271
+#define T_CHARACTER 272
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
@@ -96,11 +100,11 @@ union YYSTYPE
 #line 26 "input_xyz.y"
 
         union value_union val;
-        enum type_enum typ;
-        char            ch;
-        char            *str;
+        enum type_enum    typ;
+        char              ch;
+        char              *str;
 
-#line 104 "output_xyz.tab.h"
+#line 108 "output_xyz.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

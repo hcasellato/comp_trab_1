@@ -30,6 +30,8 @@ T_SPACE     [ \t\n]
 "bool"                          { return T_BOOL;                                    }
 "char"                          { return T_CHAR;                                    }
 "str"                           { return T_STR;                                     }
+"++"                            { return T_INC;                                     }
+"--"                            { return T_DEC;                                     }
 "false"                         { yylval.val.b = false; return T_FALSE;             }
 "true"                          { yylval.val.b = true; return T_TRUE;               }
 {T_INT}                         { yylval.val.i64 = atol(yytext); return T_INT;      }

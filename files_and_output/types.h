@@ -25,7 +25,9 @@ struct symtab {
         union value_union val;
 };
 
-extern void assign(char *id, union value_union val, enum type_enum typ);
+extern void declare(char *id, union value_union val, enum type_enum typ);
+extern void assign(char *id, union value_union val);
+extern void inc_dec(char *id, char *signal);
 
 /* flex */
 extern int yylineno;
