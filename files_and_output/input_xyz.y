@@ -19,6 +19,8 @@
 */
 int yydebug = 1;
 
+char current_function[50] = "";
+
 struct symtab symbols[MAXSYMS];
 int nsyms = 0;
 
@@ -28,29 +30,29 @@ int nsyms = 0;
         enum type_enum    typ;
         char              ch;
         char              *str;
+        int               b;
 }
 
-%token T_F64 T_I64 T_BOOL T_CHAR T_STR
-%token T_VAR
+%token           T_F64 T_I64 T_BOOL T_CHAR T_STR
+%token           T_VAR
+%token           LE GE LT GT NE EQ AND OR
+%token <str>     IF ELSE WHILE
 
-%token <str> T_ID
+%token           FUNCTION RETURN
 
-%token <str> T_INC T_DEC
+%token <str>     T_ID
+
+%token <str>     T_INC T_DEC
 %token <val.i64> T_INT
 %token <val.f64> T_REAL
 
-%token <val.b> T_TRUE T_FALSE
+%token <val.b>   T_TRUE T_FALSE
 
 %token <val.str> T_STRING 
-%token <val.ch> T_CHARACTER
+%token <val.ch>  T_CHARACTER
 
-%type <val> value
-%type <typ> type
-%type <val> expr_i
-%type <val> expr_f
-
-%type <val.i64> inc_dec;
-
+%type <val>      value
+%type <typ>      type
 
 %left '+' '-'
 %left '*' '/'
@@ -63,12 +65,15 @@ int nsyms = 0;
 */
 
 %%
-program         : block { return 0; }
+program         : function_list
                 ;
 
 block           : T_VAR decl_list block
                 | assignment block
                 | inc_dec block
+                | desvio_de_fluxo block
+                | loop block
+                | RETURN expr ';'
                 |
                 ;
 
@@ -78,54 +83,89 @@ decl_list       : decl ';'
                 | decl ',' decl_list
                 ;
 
-decl            : T_ID ':' type '=' value { declare($1, $5, $3); }
+decl            : T_ID ':' type '=' value         { declare($1, current_function, $3); }
                 ;
 
 /* 3. atribuição (assignment) */
 
-assignment      : T_ID '=' expr_i ';'             { assign($1, $3); }
-                | T_ID '=' expr_f ';'             { assign($1, $3); }
+assignment      : T_ID '=' expr ';'
+                | T_ID '=' T_ID '(' espec_f_assign ')' ';'
+                ;
+
+espec_f_assign  : T_ID
+                | T_ID ',' espec_f_assign
+                ;
+
+// imagino que seja mais simples do que 
+// fazer duas operações separadas por tipo
+
+expr            : expr '+' expr
+                | expr '-' expr
+                | expr '*' expr
+                | expr '/' expr
+                | '-' expr
+                | T_INT
+                | T_REAL
+                | T_ID
                 ;
 
 /* 4. incremento e decremento */
 
-inc_dec         : T_ID T_INC ';'                { inc_dec($1, "++"); }
-                | T_ID T_DEC ';'                { inc_dec($1, "--"); }
+inc_dec         : T_ID T_INC ';'    { inc_dec($1, "++", current_function); }
+                | T_ID T_DEC ';'    { inc_dec($1, "--", current_function); }
                 ;
 
+/* 5 e 6. funções */
 
-// imagino que seja mais simples do que 
-// fazer duas operações separadas por tipo
-expr_i          : expr_i '+' expr_i { $$.i64 = $1.i64 + $3.i64; }
-                | expr_i '-' expr_i { $$.i64 = $1.i64 - $3.i64; }
-                | expr_i '*' expr_i { $$.i64 = $1.i64 * $3.i64; }
-                | expr_i '/' expr_i { $$.i64 = $1.i64 / $3.i64; }
-                | T_INT             { $$.i64 = $1; }
+function_list   : function
+                | function function_list
+                ;
 
-expr_f          : expr_f '+' expr_f { $$.f64 = $1.f64 + $3.f64; }
-                | expr_f '-' expr_f { $$.f64 = $1.f64 - $3.f64; }
-                | expr_f '*' expr_f { $$.f64 = $1.f64 * $3.f64; }
-                | expr_f '/' expr_f { $$.f64 = $1.f64 / $3.f64; }
-                | T_REAL            { $$.f64 = $1; }
+function        : FUNCTION T_ID  {current_function_modifier($2);} '(' f_assign ')' '{' block '}'
+                ;
+
+f_assign        : T_ID type              { declare($1, current_function, $2); }
+                | T_ID type ',' f_assign { declare($1, current_function, $2); }
+                |
+                ;
+
+/* 7. desvio de fluxo (if com e sem else), sem suporte a else if */
+
+desvio_de_fluxo : IF bool_value '{' block '}'
+                | IF bool_value '{' block '}' ELSE '{' block '}'
+                ;
+
+/* 8. laço (loop, só há um, o while) */
+loop            : WHILE bool_value '{' block '}'
                 ;
 
 /* coisas gerais */
 
-/*acho que eh mais complexo que isso*/
-type  : T_F64  { $$ = F64; }
-      | T_I64  { $$ = I64; }
-      | T_BOOL { $$ = BOOL; }
-      | T_CHAR { $$ = CHAR; }
-      | T_STR  { $$ = STR; }
-      ;
+// Coisas de lógica
+bool_value : T_ID LE expr
+           | T_ID LT expr
+           | T_ID GE expr
+           | T_ID GT expr
+           | T_ID EQ expr
+           | T_ID NE expr
+           ;
 
-value : T_FALSE     { $$.b   = $1; }
-      | T_TRUE      { $$.b   = $1; }
-      | T_INT       { $$.i64 = $1; }
-      | T_REAL      { $$.f64 = $1; }
-      | T_STRING    { $$.str = $1; }
-      | T_CHARACTER { $$.ch  = $1; }
-      ;
+// Tipos
+type       : T_F64  { $$ = F64; }
+           | T_I64  { $$ = I64; }
+           | T_BOOL { $$ = BOOL; }
+           | T_CHAR { $$ = CHAR; }
+           | T_STR  { $$ = STR; }
+           ;
+
+// Valores
+value      : T_FALSE     { $$.b   = $1; }
+           | T_TRUE      { $$.b   = $1; }
+           | T_INT       { $$.i64 = $1; }
+           | T_REAL      { $$.f64 = $1; }
+           | T_STRING    { $$.str = $1; }
+           | T_CHARACTER { $$.ch  = $1; }
+           ;
 %%
 #include "output_xyz.yy.c"
 
@@ -140,13 +180,13 @@ int yyerror(const char *msg, ...) {
 }
 
 // Lookup function to create symbol table
-static struct symtab *lookup(char *id) {
+static struct symtab *lookup(char *id, char *function) {
         int i;
         struct symtab *p;
 
         for (i = 0; i < nsyms; i++) {
                 p = &symbols[i];
-                if (strncmp(p->id, id, MAXTOKEN) == 0)
+                if (strncmp(p->id, id, MAXTOKEN) == 0 && strncmp(p->function, function, MAXTOKEN) == 0)
                         return p;
         }
 
@@ -154,46 +194,28 @@ static struct symtab *lookup(char *id) {
 }
 
 // install function to symtab
-static void install(char *id, union value_union val, enum type_enum typ) {
+static void install(char *id, char *function, enum type_enum typ) {
         struct symtab *p;
 
         p = &symbols[nsyms++];
         strncpy(p->id, id, MAXTOKEN);
-        p->val = val;
+        strncpy(p->function, function, MAXTOKEN);
         p->typ = typ;
 }
 
 // declaration function
-void declare(char *id, union value_union val, enum type_enum typ) {
+void declare(char *id, char *function, enum type_enum typ) {
         struct symtab *p;
 
-        p = lookup(id);
+        p = lookup(id, function);
         if(p == NULL){
-                install(id, val, typ);
+                install(id, function, typ);
 				} else {
 				    if (p->typ != typ) {
 				        fprintf(stderr, "Type error: variable '%s' declared as %d, assigned as %d\n", id, p->typ, typ);
 				        exit(EXIT_FAILURE);
 				    }
-				    p->val = val;
-				}
-}
-
-// assign function
-void assign(char *id, union value_union val) {
-        struct symtab *p;
-
-        p = lookup(id);
-        if(p == NULL){
-                printf("Variable not created yet!");
-                exit(EXIT_FAILURE);
-				} else {
-				    if (p->typ == I64 || p->typ == F64) {
-				        p->val = val;
-				    }else{
-				        fprintf(stderr, "Type error: variable '%s' declared wrong!", id);
-				        exit(EXIT_FAILURE);
-				    }
+            strncpy(p->function, function, MAXTOKEN);
 				}
 }
 
@@ -210,25 +232,33 @@ const char* type_to_string(enum type_enum typ) {
 }
 
 // incrementa ou decrementa
-void inc_dec(char *id, char *signal) {
+void inc_dec(char *id, char *signal, char *function) {
         struct symtab *p;
 
-        p = lookup(id);
+        p = lookup(id, function);
         if(p == NULL){
-                printf("Variable not created yet!");
+                printf("Variable %s not created yet!", id);
                 exit(EXIT_FAILURE);
 				} else {
 				    if (p->typ != I64) {
 				        fprintf(stderr, "Somente funciona com inteiros, colega");
 				        exit(EXIT_FAILURE);
 				    }
-				    if(signal == "++"){
+				    if(strcmp(signal, "++") == 0){
 				      p->val.i64 = p->val.i64 + 1;
-				    } else if (signal == "--") {
+				    } else if(strcmp(signal, "--") == 0) {
 				      p->val.i64 = p->val.i64 - 1;
 				    }
 				}
 }
+
+// current function
+void current_function_modifier(char* name)
+{
+  strncpy(current_function, name, MAXTOKEN);
+}
+
+
 int main (int argc, char **argv) {
         FILE *fp;
         int i;
@@ -253,7 +283,7 @@ int main (int argc, char **argv) {
 
         for (i = 0; i < nsyms; i++) {
                 p = &symbols[i];
-                printf("%s [%s] = %d \n", p->id, type_to_string(p->typ), p->val);
+                printf("%s | %s | %s \n", p->id, type_to_string(p->typ), p->function);
         }
 
         return 0;

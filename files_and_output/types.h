@@ -23,11 +23,16 @@ struct symtab {
         char id[MAXTOKEN];
         enum type_enum typ;
         union value_union val;
+        char function[MAXTOKEN];
 };
 
-extern void declare(char *id, union value_union val, enum type_enum typ);
-extern void assign(char *id, union value_union val);
-extern void inc_dec(char *id, char *signal);
+extern void declare(char *id, char *function, enum type_enum typ);
+
+extern void inc_dec(char *id, char *signal, char *function);
+
+extern int return_from_variable(char *id);
+
+extern void current_function_modifier(char* name);
 
 /* flex */
 extern int yylineno;

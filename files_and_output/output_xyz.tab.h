@@ -60,15 +60,28 @@ extern int yydebug;
     T_CHAR = 261,                  /* T_CHAR  */
     T_STR = 262,                   /* T_STR  */
     T_VAR = 263,                   /* T_VAR  */
-    T_ID = 264,                    /* T_ID  */
-    T_INC = 265,                   /* T_INC  */
-    T_DEC = 266,                   /* T_DEC  */
-    T_INT = 267,                   /* T_INT  */
-    T_REAL = 268,                  /* T_REAL  */
-    T_TRUE = 269,                  /* T_TRUE  */
-    T_FALSE = 270,                 /* T_FALSE  */
-    T_STRING = 271,                /* T_STRING  */
-    T_CHARACTER = 272              /* T_CHARACTER  */
+    LE = 264,                      /* LE  */
+    GE = 265,                      /* GE  */
+    LT = 266,                      /* LT  */
+    GT = 267,                      /* GT  */
+    NE = 268,                      /* NE  */
+    EQ = 269,                      /* EQ  */
+    AND = 270,                     /* AND  */
+    OR = 271,                      /* OR  */
+    IF = 272,                      /* IF  */
+    ELSE = 273,                    /* ELSE  */
+    WHILE = 274,                   /* WHILE  */
+    FUNCTION = 275,                /* FUNCTION  */
+    RETURN = 276,                  /* RETURN  */
+    T_ID = 277,                    /* T_ID  */
+    T_INC = 278,                   /* T_INC  */
+    T_DEC = 279,                   /* T_DEC  */
+    T_INT = 280,                   /* T_INT  */
+    T_REAL = 281,                  /* T_REAL  */
+    T_TRUE = 282,                  /* T_TRUE  */
+    T_FALSE = 283,                 /* T_FALSE  */
+    T_STRING = 284,                /* T_STRING  */
+    T_CHARACTER = 285              /* T_CHARACTER  */
   };
   typedef enum yytokentype yytoken_kind_t;
 #endif
@@ -83,28 +96,42 @@ extern int yydebug;
 #define T_CHAR 261
 #define T_STR 262
 #define T_VAR 263
-#define T_ID 264
-#define T_INC 265
-#define T_DEC 266
-#define T_INT 267
-#define T_REAL 268
-#define T_TRUE 269
-#define T_FALSE 270
-#define T_STRING 271
-#define T_CHARACTER 272
+#define LE 264
+#define GE 265
+#define LT 266
+#define GT 267
+#define NE 268
+#define EQ 269
+#define AND 270
+#define OR 271
+#define IF 272
+#define ELSE 273
+#define WHILE 274
+#define FUNCTION 275
+#define RETURN 276
+#define T_ID 277
+#define T_INC 278
+#define T_DEC 279
+#define T_INT 280
+#define T_REAL 281
+#define T_TRUE 282
+#define T_FALSE 283
+#define T_STRING 284
+#define T_CHARACTER 285
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 26 "input_xyz.y"
+#line 28 "input_xyz.y"
 
         union value_union val;
         enum type_enum    typ;
         char              ch;
         char              *str;
+        int               b;
 
-#line 108 "output_xyz.tab.h"
+#line 135 "output_xyz.tab.h"
 
 };
 typedef union YYSTYPE YYSTYPE;

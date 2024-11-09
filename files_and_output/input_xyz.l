@@ -22,18 +22,42 @@ T_SPACE     [ \t\n]
 %option noyywrap nodefault yylineno
 %%
 ["']                            { return yytext[0];                                 }
-[,:=;]                          { return yytext[0];                                 }
+[,:=;{}()]                      { return yytext[0];                                 }
 [-+*/]                          { return yytext[0];                                 }
+
+"//".*                          { /* Ignore single-line comments */ }
+"/*"([^*]|\*+[^*/])*\*+"/"      { /* Ignore multi-line comments */ }
+
 "var"                           { return T_VAR;                                     }
 "f64"                           { return T_F64;                                     }
 "i64"                           { return T_I64;                                     }
 "bool"                          { return T_BOOL;                                    }
 "char"                          { return T_CHAR;                                    }
 "str"                           { return T_STR;                                     }
+
 "++"                            { return T_INC;                                     }
 "--"                            { return T_DEC;                                     }
+
+"if"                            { return IF;                                        }
+"else"                          { return ELSE;                                      }
+
+"while"                         { return WHILE;                                     }
+
+"<="                            { return LE;                                        }
+">="                            { return GE;                                        }
+"=="                            { return EQ;                                        }
+"!="                            { return NE;                                        }
+">"	                            { return GT;                                        }
+"<"	                            { return LT;                                        }
+"&&"	                          { return AND;                                       }
+"||"	                          { return OR;                                        }
+
 "false"                         { yylval.val.b = false; return T_FALSE;             }
 "true"                          { yylval.val.b = true; return T_TRUE;               }
+
+"fn"                            { return FUNCTION;                                  }
+"return"                        { return RETURN;                                    }
+
 {T_INT}                         { yylval.val.i64 = atol(yytext); return T_INT;      }
 {T_REAL}                        { yylval.val.f64 = atof(yytext); return T_REAL;     }
 {T_CHARACTER}                   { yylval.val.ch = yytext[0]; return T_CHARACTER;    }
