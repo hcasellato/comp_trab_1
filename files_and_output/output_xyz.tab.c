@@ -561,12 +561,12 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_uint8 yyrline[] =
 {
-       0,    76,    76,    79,    80,    81,    82,    83,    84,    85,
-      90,    91,    94,    99,   100,   103,   104,   110,   111,   112,
-     113,   114,   115,   116,   117,   122,   123,   128,   129,   132,
-     132,   135,   136,   137,   142,   143,   147,   153,   154,   155,
-     156,   157,   158,   162,   163,   164,   165,   166,   170,   171,
-     172,   173,   174,   175
+       0,    68,    68,    71,    72,    73,    74,    75,    76,    77,
+      82,    83,    86,    91,    92,    95,    96,   102,   103,   104,
+     105,   106,   107,   108,   109,   114,   115,   120,   121,   124,
+     124,   127,   128,   129,   134,   135,   139,   145,   146,   147,
+     148,   149,   150,   154,   155,   156,   157,   158,   162,   163,
+     164,   165,   166,   167
 };
 #endif
 
@@ -1211,103 +1211,103 @@ yyreduce:
   switch (yyn)
     {
   case 12: /* decl: T_ID ':' type '=' value  */
-#line 94 "input_xyz.y"
+#line 86 "input_xyz.y"
                                                   { declare((yyvsp[-4].str), current_function, (yyvsp[-2].typ)); }
 #line 1217 "output_xyz.tab.c"
     break;
 
   case 25: /* inc_dec: T_ID T_INC ';'  */
-#line 122 "input_xyz.y"
+#line 114 "input_xyz.y"
                                     { inc_dec((yyvsp[-2].str), "++", current_function); }
 #line 1223 "output_xyz.tab.c"
     break;
 
   case 26: /* inc_dec: T_ID T_DEC ';'  */
-#line 123 "input_xyz.y"
+#line 115 "input_xyz.y"
                                     { inc_dec((yyvsp[-2].str), "--", current_function); }
 #line 1229 "output_xyz.tab.c"
     break;
 
   case 29: /* $@1: %empty  */
-#line 132 "input_xyz.y"
+#line 124 "input_xyz.y"
                                  {current_function_modifier((yyvsp[0].str));}
 #line 1235 "output_xyz.tab.c"
     break;
 
   case 31: /* f_assign: T_ID type  */
-#line 135 "input_xyz.y"
+#line 127 "input_xyz.y"
                                          { declare((yyvsp[-1].str), current_function, (yyvsp[0].typ)); }
 #line 1241 "output_xyz.tab.c"
     break;
 
   case 32: /* f_assign: T_ID type ',' f_assign  */
-#line 136 "input_xyz.y"
+#line 128 "input_xyz.y"
                                          { declare((yyvsp[-3].str), current_function, (yyvsp[-2].typ)); }
 #line 1247 "output_xyz.tab.c"
     break;
 
   case 43: /* type: T_F64  */
-#line 162 "input_xyz.y"
+#line 154 "input_xyz.y"
                     { (yyval.typ) = F64; }
 #line 1253 "output_xyz.tab.c"
     break;
 
   case 44: /* type: T_I64  */
-#line 163 "input_xyz.y"
+#line 155 "input_xyz.y"
                     { (yyval.typ) = I64; }
 #line 1259 "output_xyz.tab.c"
     break;
 
   case 45: /* type: T_BOOL  */
-#line 164 "input_xyz.y"
+#line 156 "input_xyz.y"
                     { (yyval.typ) = BOOL; }
 #line 1265 "output_xyz.tab.c"
     break;
 
   case 46: /* type: T_CHAR  */
-#line 165 "input_xyz.y"
+#line 157 "input_xyz.y"
                     { (yyval.typ) = CHAR; }
 #line 1271 "output_xyz.tab.c"
     break;
 
   case 47: /* type: T_STR  */
-#line 166 "input_xyz.y"
+#line 158 "input_xyz.y"
                     { (yyval.typ) = STR; }
 #line 1277 "output_xyz.tab.c"
     break;
 
   case 48: /* value: T_FALSE  */
-#line 170 "input_xyz.y"
+#line 162 "input_xyz.y"
                          { (yyval.val).b   = (yyvsp[0].val.b); }
 #line 1283 "output_xyz.tab.c"
     break;
 
   case 49: /* value: T_TRUE  */
-#line 171 "input_xyz.y"
+#line 163 "input_xyz.y"
                          { (yyval.val).b   = (yyvsp[0].val.b); }
 #line 1289 "output_xyz.tab.c"
     break;
 
   case 50: /* value: T_INT  */
-#line 172 "input_xyz.y"
+#line 164 "input_xyz.y"
                          { (yyval.val).i64 = (yyvsp[0].val.i64); }
 #line 1295 "output_xyz.tab.c"
     break;
 
   case 51: /* value: T_REAL  */
-#line 173 "input_xyz.y"
+#line 165 "input_xyz.y"
                          { (yyval.val).f64 = (yyvsp[0].val.f64); }
 #line 1301 "output_xyz.tab.c"
     break;
 
   case 52: /* value: T_STRING  */
-#line 174 "input_xyz.y"
+#line 166 "input_xyz.y"
                          { (yyval.val).str = (yyvsp[0].val.str); }
 #line 1307 "output_xyz.tab.c"
     break;
 
   case 53: /* value: T_CHARACTER  */
-#line 175 "input_xyz.y"
+#line 167 "input_xyz.y"
                          { (yyval.val).ch  = (yyvsp[0].val.ch); }
 #line 1313 "output_xyz.tab.c"
     break;
@@ -1507,7 +1507,7 @@ yyreturn:
   return yyresult;
 }
 
-#line 177 "input_xyz.y"
+#line 169 "input_xyz.y"
 
 #include "output_xyz.yy.c"
 

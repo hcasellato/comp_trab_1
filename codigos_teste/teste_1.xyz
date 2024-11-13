@@ -1,0 +1,21 @@
+// teste_1.xyz
+fn f1(n i64, g f64) {
+        var
+           a : f64 = 1,
+           b : f64 = 1;
+    
+        if n < g {
+            return a - b;
+        }
+        
+        return b - a;
+}
+    
+fn main() {
+        var 
+           f : i64 = 0;
+    
+        f = f1(i);
+
+        return 0;
+}

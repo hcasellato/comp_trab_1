@@ -1,0 +1,37 @@
+// teste_2.xyz
+fn f1(n i64, g f64) {
+        var
+           a : i64 = 1,
+           b : f64 = 1;
+
+        while a < b {
+            a++;
+        }
+    
+        if n < g {
+            return a - b;
+        } else {
+		      return b - a;
+        }
+        
+        
+}
+
+fn f2(i i64) {
+        var
+           c : f64 = 2,
+           d : f64 = 1;
+				return c + a;
+}
+
+
+fn main() {
+        var 
+        	i : i64 = 1,
+           f : i64 = 0;
+    
+        f = f1(i);
+				g = f2(i);
+				
+        return 0;
+}
